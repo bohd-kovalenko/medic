@@ -16,7 +16,7 @@ public class SoldierController {
     private final SoldierService soldierService;
 
     @GetMapping
-    public ResponseEntity<List<Soldier>> searchSoldiers(@RequestParam(required = false) String search) {
+    public ResponseEntity<List<Soldier>> getSoldiers(@RequestParam(required = false) String search) {
         List<Soldier> soldiers;
 
         if (search != null) {
@@ -41,9 +41,15 @@ public class SoldierController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> editItem(@PathVariable int id,
-                                         @RequestBody Soldier soldier) {
+    public ResponseEntity<Void> editSoldier(@PathVariable int id,
+                                            @RequestBody Soldier soldier) {
         soldierService.updateSoldierById(id, soldier);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSoldierById(@PathVariable int id) {
+        soldierService.deleteSoldierById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

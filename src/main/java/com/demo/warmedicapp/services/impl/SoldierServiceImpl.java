@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -18,6 +19,11 @@ public class SoldierServiceImpl implements SoldierService {
 
     @Override
     public List<Soldier> getAllSoldiers() {
+        return soldierRepository.findAll();
+    }
+
+    @Override
+    public List<Soldier> getNotDeletedSoldiers() {
         return soldierRepository.findAll();
     }
 
@@ -52,6 +58,20 @@ public class SoldierServiceImpl implements SoldierService {
 
         try {
             soldierRepository.save(soldier);
+        } catch (Exception e) {
+            throw new ValidationException();
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteSoldierById(Integer id) {
+        Soldier soldierEntity = soldierRepository.findById(id).orElseThrow(() -> new UnexistingSoldierException(id));
+
+        soldierEntity.setDeletedAt(LocalDateTime.now());
+
+        try {
+            soldierRepository.save(soldierEntity);
         } catch (Exception e) {
             throw new ValidationException();
         }
