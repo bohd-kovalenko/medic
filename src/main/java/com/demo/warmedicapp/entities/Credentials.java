@@ -19,4 +19,7 @@ public class Credentials {
     private String username;
     @Column(name = "password", unique = false, nullable = false)
     private String password;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id", unique = false, nullable = true)
+    private Role role;
 }
