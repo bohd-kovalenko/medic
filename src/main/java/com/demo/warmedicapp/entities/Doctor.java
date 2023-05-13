@@ -1,6 +1,5 @@
 package com.demo.warmedicapp.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "medic")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Medic {
+public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
@@ -19,8 +18,8 @@ public class Medic {
     private String name;
     @Column(name = "surname", nullable = false)
     private String surname;
-    @Column(name = "role_id", nullable = false)
-    @JsonProperty("role_id")
-    private int roleId;
+    @JoinColumn(name = "credentials_id", nullable = false, unique = true)
+    @OneToOne(fetch = FetchType.EAGER)
+    private Credentials credentials;
 
 }
