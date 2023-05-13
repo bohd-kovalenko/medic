@@ -1,8 +1,9 @@
 package com.demo.warmedicapp.controllers;
 
 import com.demo.warmedicapp.payload.requests.AuthenticationRequest;
-import com.demo.warmedicapp.payload.responses.TokenResponse;
 import com.demo.warmedicapp.services.AuthenticationService;
+import com.demo.warmedicapp.services.CookieService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +15,14 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
+    private final CookieService cookieService;
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<TokenResponse> loginUser(@RequestBody AuthenticationRequest requestBody) {
+    public ResponseEntity<Void> loginUser(@RequestBody AuthenticationRequest requestBody,
+                                          HttpServletResponse response) {
         String token = authenticationService.loginUser(requestBody);
-        return new ResponseEntity<>(new TokenResponse(token), HttpStatus.OK);
+        response.addCookie(cookieService.generateCookieForToken(token));
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
