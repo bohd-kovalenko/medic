@@ -25,4 +25,10 @@ public class AuthenticationController {
         response.addCookie(cookieService.generateCookieForToken(token));
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping("/register")
+    public ResponseEntity<Void> regUser(@RequestBody AuthenticationRequest request) {
+        authenticationService.regUser(request);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

@@ -33,7 +33,8 @@ public class JWTSecurityFilter extends OncePerRequestFilter {
         try {
             jwtService.validateToken(findTokenInCookies(request.getCookies()));
         } catch (Exception e) {
-            filterChain.doFilter(request, response);
+            filterChain.doFilter(request,response);
+            return;
         }
         String username = jwtService.extractUsername(findTokenInCookies(request.getCookies()));
         Credentials credentials = credentialsService.findCredentialsByUsername(username);
