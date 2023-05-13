@@ -16,8 +16,15 @@ public class SoldierController {
     private final SoldierService soldierService;
 
     @GetMapping
-    public ResponseEntity<List<Soldier>> getAllSoldiers() {
-        List<Soldier> soldiers = soldierService.getAllSoldiers();
+    public ResponseEntity<List<Soldier>> searchSoldiers(@RequestParam(required = false) String search) {
+        List<Soldier> soldiers;
+
+        if (search != null) {
+            soldiers = soldierService.searchSoldiers(search);
+        } else {
+            soldiers = soldierService.getAllSoldiers();
+        }
+
         return new ResponseEntity<>(soldiers, HttpStatus.OK);
     }
 

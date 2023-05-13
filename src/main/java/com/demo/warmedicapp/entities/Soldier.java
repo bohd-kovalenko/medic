@@ -27,6 +27,10 @@ public class Soldier {
     @JsonProperty("surname")
     private String surname;
 
+    @Column(name = "patronymic", unique = false, nullable = false)
+    @JsonProperty("patronymic")
+    private String patronymic;
+
     @Column(name = "blood_type", unique = false, nullable = false)
     @JsonProperty("blood_type")
     private String bloodType;

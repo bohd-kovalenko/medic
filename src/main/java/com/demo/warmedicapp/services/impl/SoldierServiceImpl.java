@@ -29,6 +29,11 @@ public class SoldierServiceImpl implements SoldierService {
     }
 
     @Override
+    public List<Soldier> searchSoldiers(String search) {
+        return soldierRepository.searchSoldiers(search);
+    }
+
+    @Override
     @Transactional
     public void addSoldier(Soldier soldier) {
         try {

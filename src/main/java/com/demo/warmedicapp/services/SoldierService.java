@@ -9,6 +9,8 @@ public interface SoldierService {
 
     Soldier getSoldierById(Integer id);
 
+    List<Soldier> searchSoldiers(String search);
+
     void addSoldier(Soldier soldier);
 
     void updateSoldierById(Integer id, Soldier soldier);
