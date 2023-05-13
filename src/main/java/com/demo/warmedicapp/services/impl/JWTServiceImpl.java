@@ -31,7 +31,7 @@ public class JWTServiceImpl implements JWTService {
 
     @Override
     public void validateToken(String token) {
-        JwtParser parser = Jwts.parserBuilder().setSigningKey(getKey()).build();
+        JwtParser parser = getParser();
         try {
             parser.parse(token);
         } catch (Exception e) {
@@ -39,7 +39,23 @@ public class JWTServiceImpl implements JWTService {
         }
     }
 
+    @Override
+    public String extractUsername(String token) {
+        JwtParser parser = getParser();
+        return parser
+                .parseClaimsJwt(token)
+                .getBody()
+                .getSubject();
+    }
+
     private Key getKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+    }
+
+    private JwtParser getParser() {
+        return Jwts
+                .parserBuilder()
+                .setSigningKey(getKey())
+                .build();
     }
 }

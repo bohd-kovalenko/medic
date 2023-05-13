@@ -1,5 +1,8 @@
 package com.demo.warmedicapp.configs;
 
+import com.demo.warmedicapp.filters.JWTSecurityFilter;
+import com.demo.warmedicapp.services.CredentialsService;
+import com.demo.warmedicapp.services.JWTService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
@@ -14,11 +17,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @RequiredArgsConstructor
 public class WebSecurityConfig {
     private final UserDetailsService userDetailsService;
+    private final JWTService jwtService;
+    private final CredentialsService credentialsService;
 
     @SneakyThrows
     @Bean
@@ -29,7 +35,9 @@ public class WebSecurityConfig {
                 .cors()
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilterBefore(new JWTSecurityFilter(jwtService, credentialsService), UsernamePasswordAuthenticationFilter.class);
         return security.build();
     }
 
