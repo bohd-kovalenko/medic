@@ -4,12 +4,9 @@ import com.demo.warmedicapp.entities.Soldier;
 import com.demo.warmedicapp.exceptions.UnexistingSoldierException;
 import com.demo.warmedicapp.exceptions.ValidationException;
 import com.demo.warmedicapp.repositories.SoldierRepository;
-import com.demo.warmedicapp.services.FileService;
 import com.demo.warmedicapp.services.SoldierService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,40 +16,31 @@ import java.util.List;
 public class SoldierServiceImpl implements SoldierService {
     private final SoldierRepository soldierRepository;
 
-    private final FileService fileService;
-
     @Override
-    public ResponseEntity<List<Soldier>> getAllSoldiers() {
-        List<Soldier> allRooms = soldierRepository.findAll();
-
-        return new ResponseEntity<>(allRooms, HttpStatus.OK);
+    public List<Soldier> getAllSoldiers() {
+        return soldierRepository.findAll();
     }
 
     @Override
-    public ResponseEntity<Soldier> getSoldierById(Integer id) {
-        Soldier room = soldierRepository
+    public Soldier getSoldierById(Integer id) {
+        return soldierRepository
                 .findById(id)
                 .orElseThrow(() -> new UnexistingSoldierException(id));
-
-        return new ResponseEntity<>(room, HttpStatus.OK);
     }
-
 
     @Override
     @Transactional
-    public ResponseEntity<Void> addSoldier(Soldier soldier) {
+    public void addSoldier(Soldier soldier) {
         try {
-            soldier = soldierRepository.save(soldier);
+            soldierRepository.save(soldier);
         } catch (Exception e) {
             throw new ValidationException();
         }
-
-        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @Override
     @Transactional
-    public ResponseEntity<Void> updateSoldierById(Integer id, Soldier soldier) {
+    public void updateSoldierById(Integer id, Soldier soldier) {
         Soldier soldierEntity = soldierRepository.findById(id).orElseThrow(() -> new UnexistingSoldierException(id));
 
         soldier.setId(soldierEntity.getId());
@@ -62,17 +50,5 @@ public class SoldierServiceImpl implements SoldierService {
         } catch (Exception e) {
             throw new ValidationException();
         }
-
-        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
-//    public ResponseEntity<Void> addSoldier(Soldier soldier) {
-//        try {
-//            roomRepository.save(room);
-//        } catch (Exception e) {
-//            throw new RoomAlreadyExistsException(room.getIdentifier());
-//        }
-//
-//        return ResponseEntity.status(HttpStatus.CREATED).build();
-//    }
 }

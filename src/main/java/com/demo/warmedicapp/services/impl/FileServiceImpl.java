@@ -5,13 +5,12 @@ import com.azure.storage.blob.BlobContainerClient;
 import com.demo.warmedicapp.entities.File;
 import com.demo.warmedicapp.entities.enums.FileType;
 import com.demo.warmedicapp.exceptions.UnexistingSoldierException;
+import com.demo.warmedicapp.exceptions.WrongFileException;
 import com.demo.warmedicapp.repositories.FileRepository;
 import com.demo.warmedicapp.repositories.SoldierRepository;
 import com.demo.warmedicapp.services.FileService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,23 +31,18 @@ public class FileServiceImpl implements FileService {
     private final BlobContainerClient filesContainerClient;
 
     @Override
-    public ResponseEntity<List<File>> getAllFilesBySoldierIdAndType(Integer id, FileType type) {
+    public List<File> getAllFilesBySoldierIdAndType(Integer id, FileType type) {
         soldierRepository.findById(id).orElseThrow(() -> new UnexistingSoldierException(id));
 
-        List<File> files = fileRepository.findBySoldierIdAndType(id, type);
-        return new ResponseEntity<>(files, HttpStatus.OK);
+        return fileRepository.findBySoldierIdAndType(id, type);
     }
 
     @Override
     @Transactional
-    public ResponseEntity<Void> saveAllFiles(List<MultipartFile> files, FileType type, Integer id) {
+    public void saveAllFiles(List<MultipartFile> files, FileType type, Integer id) {
         soldierRepository.findById(id).orElseThrow(() -> new UnexistingSoldierException(id));
 
-        deleteAllFilesBySoldierId(id, type);
-
         files.forEach(image -> saveFile(image, type, id));
-
-        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     private void saveFile(MultipartFile image, FileType type, Integer id) {
@@ -61,7 +55,7 @@ public class FileServiceImpl implements FileService {
         try {
             blobClient.upload(image.getInputStream(), image.getSize(), true);
         } catch (IOException e) {
-            throw new RuntimeException("Something is wrong with image");
+            throw new WrongFileException();
         }
     }
 

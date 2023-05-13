@@ -2,6 +2,7 @@ package com.demo.warmedicapp.exceptions.handlers;
 
 import com.demo.warmedicapp.exceptions.UnexistingSoldierException;
 import com.demo.warmedicapp.exceptions.ValidationException;
+import com.demo.warmedicapp.exceptions.WrongFileException;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -15,6 +16,11 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(value = {ValidationException.class})
     public ErrorResponse handleValidationException(ValidationException e) {
+        return new ErrorResponseImpl(e.getErrorCode(), e.getMessage());
+    }
+
+    @ExceptionHandler(value = {WrongFileException.class})
+    public ErrorResponse handleValidationException(WrongFileException e) {
         return new ErrorResponseImpl(e.getErrorCode(), e.getMessage());
     }
 }

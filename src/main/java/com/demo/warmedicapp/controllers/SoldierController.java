@@ -3,6 +3,7 @@ package com.demo.warmedicapp.controllers;
 import com.demo.warmedicapp.entities.Soldier;
 import com.demo.warmedicapp.services.SoldierService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,22 +17,26 @@ public class SoldierController {
 
     @GetMapping
     public ResponseEntity<List<Soldier>> getAllSoldiers() {
-        return soldierService.getAllSoldiers();
+        List<Soldier> soldiers = soldierService.getAllSoldiers();
+        return new ResponseEntity<>(soldiers, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Soldier> getSoldierById(@PathVariable int id) {
-        return soldierService.getSoldierById(id);
+        Soldier soldier = soldierService.getSoldierById(id);
+        return new ResponseEntity<>(soldier, HttpStatus.OK);
     }
 
     @PostMapping()
-    public ResponseEntity<Void> addSoldier(@RequestPart("soldier") Soldier soldier) {
-        return soldierService.addSoldier(soldier);
+    public ResponseEntity<Void> addSoldier(@RequestBody Soldier soldier) {
+        soldierService.addSoldier(soldier);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> editItem(@PathVariable int id,
-                                         @RequestPart("soldier") Soldier soldier) {
-        return soldierService.updateSoldierById(id, soldier);
+                                         @RequestBody Soldier soldier) {
+        soldierService.updateSoldierById(id, soldier);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

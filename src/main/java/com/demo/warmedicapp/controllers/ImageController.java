@@ -4,6 +4,7 @@ import com.demo.warmedicapp.entities.File;
 import com.demo.warmedicapp.entities.enums.FileType;
 import com.demo.warmedicapp.services.FileService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +20,16 @@ public class ImageController {
 
     @GetMapping("/{id}/images")
     public ResponseEntity<List<File>> getAllImagesById(@PathVariable int id) {
-        return fileService.getAllFilesBySoldierIdAndType(id, FileType.IMAGE);
+        List<File> files = fileService.getAllFilesBySoldierIdAndType(id, FileType.IMAGE);
+
+        return new ResponseEntity<>(files, HttpStatus.OK);
     }
 
     @PostMapping(value = "/{id}/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> addImagesById(@PathVariable int id,
                                               @RequestParam("images") List<MultipartFile> images) {
-        return fileService.saveAllFiles(images, FileType.IMAGE, id);
+        fileService.saveAllFiles(images, FileType.IMAGE, id);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
