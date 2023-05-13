@@ -19,4 +19,7 @@ public class SoldierToMedic {
 
     @Column(name = "medic_id", nullable = false)
     private Integer medicId;
+
+    @Column(name = "note", nullable = false, unique = false)
+    private String note;
 }

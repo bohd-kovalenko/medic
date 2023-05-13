@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 
 
 @Entity
-@Table(name = "medic")
+@Table(name = "doctor")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Medic {
+public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
