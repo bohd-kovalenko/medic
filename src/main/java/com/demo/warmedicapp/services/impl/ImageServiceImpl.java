@@ -1,13 +1,14 @@
 package com.demo.warmedicapp.services.impl;
 
+
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
 import com.demo.warmedicapp.entities.Image;
 import com.demo.warmedicapp.repositories.ImageRepository;
 import com.demo.warmedicapp.services.ImageService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;

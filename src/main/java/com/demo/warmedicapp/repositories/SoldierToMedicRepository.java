@@ -1,15 +1,13 @@
 package com.demo.warmedicapp.repositories;
 
 import com.demo.warmedicapp.entities.Soldier;
-import org.springframework.data.jpa.repository.EntityGraph;
+import com.demo.warmedicapp.entities.SoldierToMedic;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
-public interface SoldierRepository extends JpaRepository<Soldier, Integer> {
-    @EntityGraph(attributePaths = "images")
-    List<Soldier> findAll();
+public interface SoldierToMedicRepository extends JpaRepository<SoldierToMedic, Integer> {
+    List<Soldier> findAllByMedicId(Integer id);
 }

@@ -3,27 +3,24 @@ package com.demo.warmedicapp.entities;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Entity
-@Table(name = "images")
-@NoArgsConstructor
+@Table(name = "medic")
 @AllArgsConstructor
-@Data
-@Builder
-public class Image {
+@NoArgsConstructor
+public class Medic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
-
-    @Column(name = "url", unique = false, nullable = false)
-    @JsonProperty("url")
+    @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "surname", nullable = false)
+    private String surname;
+    @Column(name = "role_id", nullable = false)
+    @JsonProperty("role_id")
+    private int roleId;
 
-    @Column(name = "soldier_id", unique = false, nullable = false)
-    @JsonProperty("soldier_id")
-    private int soldierId;
 }
