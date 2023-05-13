@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @Entity
 @Table(name = "soldiers")
 @NoArgsConstructor
@@ -40,8 +38,4 @@ public class Soldier {
     @Column(name = "needs_blood_transfusion", unique = false, nullable = false)
     @JsonProperty("needs_blood_transfusion")
     private Boolean needsBloodTransfusion;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "soldier_id", referencedColumnName = "id")
-    private Set<Image> images;
 }

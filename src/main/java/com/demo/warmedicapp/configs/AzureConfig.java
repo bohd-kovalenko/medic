@@ -15,8 +15,8 @@ public class AzureConfig {
     @Value("${azure.storage.container-name}")
     private String containerName;
 
-    @Bean
-    public BlobContainerClient blobContainerClient() {
+    @Bean(value = "imageBlobContainerClient")
+    public BlobContainerClient imageBlobContainerClient() {
         BlobServiceClient blobServiceClient = new BlobServiceClientBuilder()
                 .connectionString(connectionString)
                 .buildClient();
