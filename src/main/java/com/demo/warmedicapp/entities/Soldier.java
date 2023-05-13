@@ -42,4 +42,7 @@ public class Soldier {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "soldier_id", referencedColumnName = "id")
     private Set<Image> images;
+
+    @Column(name = "battalion_id", nullable = false)
+    private Integer battalionId;
 }
