@@ -22,4 +22,6 @@ public class Credentials {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", unique = false, nullable = true)
     private Role role;
+    @OneToOne(mappedBy = "credentials")
+    private Doctor doctor;
 }

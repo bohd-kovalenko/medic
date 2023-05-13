@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "soldier_to_medic")
 @AllArgsConstructor
 @NoArgsConstructor
-public class SoldierToMedic {
+public class SoldierToDoctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)

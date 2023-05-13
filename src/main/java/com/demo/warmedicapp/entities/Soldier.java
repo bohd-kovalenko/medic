@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "soldiers")
 @NoArgsConstructor
@@ -31,15 +33,16 @@ public class Soldier {
     @JsonProperty("patronymic")
     private String patronymic;
 
-    @Column(name = "blood_type", unique = false, nullable = false)
-    @JsonProperty("blood_type")
-    private String bloodType;
-
-    @Column(name = "infections", unique = false, nullable = false)
-    @JsonProperty("infections")
-    private String infections;
-
     @Column(name = "needs_blood_transfusion", unique = false, nullable = false)
     @JsonProperty("needs_blood_transfusion")
     private Boolean needsBloodTransfusion;
+
+    @OneToMany(mappedBy = "soldier")
+    private List<GeneralSoldierMedicalInfo> generalSoldierMedicalInfoList;
+    @OneToMany(mappedBy = "soldier")
+    private List<SoldierInjuriesTypes> soldierInjuriesTypesList;
+    @OneToMany(mappedBy = "soldier")
+    private List<SoldierInjuriesConcrete> soldierInjuriesConcreteList;
+    @OneToMany(mappedBy = "soldier")
+    private List<SpecificSituationInfo> specificSituationInfoList;
 }
