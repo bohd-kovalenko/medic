@@ -40,7 +40,7 @@ public class SoldierInjuriesTypes {
     private boolean rpg;
     @Column(name ="other", nullable = true, unique = false)
     private String other;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "soldier_id", nullable = false, unique = false)
     private Soldier soldier;
 }
