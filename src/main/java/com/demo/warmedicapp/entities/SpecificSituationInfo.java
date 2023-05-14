@@ -27,7 +27,7 @@ public class SpecificSituationInfo {
     private String bloodPressure;
     @Column(name = "respiratory_rate", unique = false, nullable = true)
     private String respiratoryDate;
-    @Column(name = "pulse_Ox%O2_sat", unique = false, nullable = true)
+    @Column(name = "pulse_ox%o2_sat", unique = false, nullable = true)
     private String pulseOxO2Sat;
     @Column(name = "avpu", unique = false, nullable = true)
     private String avpu;
@@ -36,5 +36,4 @@ public class SpecificSituationInfo {
     @ManyToOne
     @JoinColumn(name = "soldier_id", nullable = false, unique = false)
     private Soldier soldier;
-
 }
