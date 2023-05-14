@@ -25,7 +25,7 @@ public class SoldierInjuriesConcrete {
     private String tq;
     @Column(name = "injury_time", nullable = true, unique = false)
     private LocalDateTime injuryTime;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "soldier_id", nullable = false, unique = false)
     private Soldier soldier;
 }

@@ -27,6 +27,8 @@ public class Doctor {
     @Column(name = "surname", unique = false, nullable = false)
     @JsonProperty("surname")
     private String surname;
+    @Column(name = "brigade", unique = false, nullable = true)
+    private String brigade;
 
     @OneToOne
     @JoinColumn(name = "credentials_id", referencedColumnName = "id")

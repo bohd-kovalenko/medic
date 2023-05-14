@@ -1,6 +1,7 @@
 package com.demo.warmedicapp.services;
 
 import com.demo.warmedicapp.entities.Soldier;
+import com.demo.warmedicapp.payload.responses.SoldierResponse;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface SoldierService {
     void updateSoldierById(Integer id, Soldier soldier);
 
     void deleteSoldierById(Integer id);
+
+    List<SoldierResponse> getAllSoldiersRelatedToTheDoctor(String username);
 }

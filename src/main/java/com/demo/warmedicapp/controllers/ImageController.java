@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/soldiers")
 @RequiredArgsConstructor
+@CrossOrigin(value = "*", allowedHeaders = "*")
 public class ImageController {
     private final FileService fileService;
 
