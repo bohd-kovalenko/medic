@@ -22,4 +22,12 @@ public class CookieServiceImpl implements CookieService {
         cookie.setMaxAge(Integer.parseInt(maximumAgeOfTokenCookie));
         return cookie;
     }
+
+    @Override
+    public Cookie generateAnulationCookieForTokenCookie() {
+        Cookie cookie = new Cookie(tokenCookieName, "");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(0);
+        return cookie;
+    }
 }

@@ -4,4 +4,6 @@ import jakarta.servlet.http.Cookie;
 
 public interface CookieService {
     Cookie generateCookieForToken(String token);
+
+    Cookie generateAnulationCookieForTokenCookie();
 }

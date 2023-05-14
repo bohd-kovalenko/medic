@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
+
     private final AuthenticationService authenticationService;
     private final CookieService cookieService;
 
@@ -30,6 +31,13 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> regUser(@RequestBody AuthenticationRequest request) {
         authenticationService.regUser(request);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/logout")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Void> logoutUser(HttpServletResponse response) {
+        response.addCookie(cookieService.generateAnulationCookieForTokenCookie());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

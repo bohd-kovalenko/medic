@@ -1,6 +1,7 @@
 package com.demo.warmedicapp.payload.responses;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,7 @@ public class AuthenticationResponse {
     private String username;
     private String roleName;
     private Integer id;
+    @JsonIgnore
     private String token;
 
     @JsonCreator
