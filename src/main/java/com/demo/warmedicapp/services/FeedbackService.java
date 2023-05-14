@@ -11,4 +11,6 @@ public interface FeedbackService {
     List<Feedback> getAllFeedbacksBySoldierId(Integer id);
 
     void addFeedback(Feedback feedback);
+
+    void updateFeedback(Integer id, Feedback feedback);
 }

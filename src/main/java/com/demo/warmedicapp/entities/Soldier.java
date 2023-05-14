@@ -37,6 +37,18 @@ public class Soldier {
     @JsonProperty("patronymic")
     private String patronymic;
 
+    @Column(name = "age", unique = false, nullable = false)
+    @JsonProperty("age")
+    private Integer age;
+
+    @Column(name = "infections", unique = false, nullable = false)
+    @JsonProperty("infections")
+    private String infections;
+
+    @Column(name = "allergies", unique = false, nullable = false)
+    @JsonProperty("allergies")
+    private String allergies;
+
     @Column(name = "needs_blood_transfusion", unique = false, nullable = false)
     @JsonProperty("needs_blood_transfusion")
     private Boolean needsBloodTransfusion;

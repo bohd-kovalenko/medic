@@ -1,6 +1,7 @@
 package com.demo.warmedicapp.services.impl;
 
 import com.demo.warmedicapp.entities.Feedback;
+import com.demo.warmedicapp.entities.Note;
 import com.demo.warmedicapp.exceptions.UnexistingSoldierException;
 import com.demo.warmedicapp.exceptions.ValidationException;
 import com.demo.warmedicapp.repositories.FeedbackRepository;
@@ -38,6 +39,17 @@ public class FeedbackServiceImpl implements FeedbackService {
         soldierService.getSoldierById(feedback.getSoldierId());
 
         try {
+            feedbackRepository.save(feedback);
+        } catch (Exception e) {
+            throw new ValidationException();
+        }
+    }
+
+    @Override
+    public void updateFeedback(Integer id, Feedback feedback) {
+        try {
+            feedback.setId(id);
+
             feedbackRepository.save(feedback);
         } catch (Exception e) {
             throw new ValidationException();

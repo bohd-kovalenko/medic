@@ -31,9 +31,17 @@ public class FeedbackController {
     }
 
     @PostMapping("/feedbacks")
-    public ResponseEntity<List<Note>> addNote(@RequestBody Feedback feedback) {
+    public ResponseEntity<Void> addNote(@RequestBody Feedback feedback) {
         feedbackService.addFeedback(feedback);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PutMapping("/feedbacks/{id}")
+    public ResponseEntity<Void> getAllNotesBySoldierId(@PathVariable int id,
+                                                       @RequestBody Feedback feedback) {
+        feedbackService.updateFeedback(id, feedback);
+
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

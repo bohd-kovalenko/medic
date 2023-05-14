@@ -18,11 +18,11 @@ public class NoteServiceImpl implements NoteService {
 
     private final SoldierService soldierService;
 
-    public List<Note> getAllFeedbacks() {
+    public List<Note> getAllNotes() {
         return noteRepository.findAll();
     }
 
-    public List<Note> getAllFeedbacksBySoldierId(Integer id) {
+    public List<Note> getAllNotesBySoldierId(Integer id) {
         List<Note> notes;
 
         try {
@@ -34,10 +34,21 @@ public class NoteServiceImpl implements NoteService {
         return notes;
     }
 
-    public void addFeedback(Note note) {
+    public void addNote(Note note) {
         soldierService.getSoldierById(note.getSoldierId());
 
         try {
+            noteRepository.save(note);
+        } catch (Exception e) {
+            throw new ValidationException();
+        }
+    }
+
+    @Override
+    public void updateNote(Integer id, Note note) {
+        try {
+            note.setId(id);
+
             noteRepository.save(note);
         } catch (Exception e) {
             throw new ValidationException();
