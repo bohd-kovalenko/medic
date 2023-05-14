@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/soldiers")
 @RequiredArgsConstructor
+@CrossOrigin(value = "*", allowedHeaders = "*")
 public class VoiceMessageController {
     private final FileService fileService;
 

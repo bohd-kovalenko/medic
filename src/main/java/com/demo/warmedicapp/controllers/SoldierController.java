@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/soldiers")
 @RequiredArgsConstructor
+@CrossOrigin(value = "*", allowedHeaders = "*")
 public class SoldierController {
     private final SoldierService soldierService;
 

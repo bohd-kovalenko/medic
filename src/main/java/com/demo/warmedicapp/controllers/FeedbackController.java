@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/soldiers")
 @RequiredArgsConstructor
+@CrossOrigin(value = "*", allowedHeaders = "*")
 public class FeedbackController {
     private final FeedbackService feedbackService;
 
