@@ -25,7 +25,7 @@ public class SpecificSituationInfo {
     private String pulse;
     @Column(name = "blood_pressure", unique = false, nullable = true)
     private String bloodPressure;
-    @Column(name = "respiratory_date", unique = false, nullable = true)
+    @Column(name = "respiratory_rate", unique = false, nullable = true)
     private String respiratoryDate;
     @Column(name = "pulse_Ox%O2_sat", unique = false, nullable = true)
     private String pulseOxO2Sat;
