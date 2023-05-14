@@ -1,9 +1,10 @@
 package com.demo.warmedicapp.services;
 
 import com.demo.warmedicapp.payload.requests.AuthenticationRequest;
+import com.demo.warmedicapp.payload.responses.AuthenticationResponse;
 
 public interface AuthenticationService {
-    String loginUser(AuthenticationRequest request);
+    AuthenticationResponse loginUser(AuthenticationRequest request);
 
     void regUser(AuthenticationRequest request);
 }

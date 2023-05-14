@@ -2,6 +2,7 @@ package com.demo.warmedicapp.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "medic")
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

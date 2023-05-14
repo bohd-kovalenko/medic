@@ -18,7 +18,7 @@ public class CookieServiceImpl implements CookieService {
     public Cookie generateCookieForToken(String token) {
         Cookie cookie = new Cookie(tokenCookieName, token);
         cookie.setHttpOnly(true);
-        cookie.setSecure(true);
+//        cookie.setSecure(true);
         cookie.setMaxAge(Integer.parseInt(maximumAgeOfTokenCookie));
         return cookie;
     }
