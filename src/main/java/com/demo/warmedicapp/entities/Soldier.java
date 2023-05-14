@@ -41,6 +41,10 @@ public class Soldier {
     @Column(name = "needs_blood_transfusion", unique = false, nullable = false)
     @JsonProperty("needs_blood_transfusion")
     private Boolean needsBloodTransfusion;
+    @Column(name = "age", nullable = true, unique = false)
+    private Integer age;
+    @Column(name = "infections", nullable = true, unique = false)
+    private String infections;
 
     @Column(name = "created_at", unique = false, nullable = false)
     @JsonProperty("created_at")

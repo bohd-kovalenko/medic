@@ -1,6 +1,7 @@
 package com.demo.warmedicapp.services.impl;
 
 import com.demo.warmedicapp.services.JWTService;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -33,7 +34,7 @@ public class JWTServiceImpl implements JWTService {
     public void validateToken(String token) {
         JwtParser parser = getParser();
         try {
-            parser.parse(token);
+            parser.parseClaimsJws(token);
         } catch (Exception e) {
             throw new RuntimeException();// CHANGE EXCEPTION!!
         }
@@ -42,10 +43,8 @@ public class JWTServiceImpl implements JWTService {
     @Override
     public String extractUsername(String token) {
         JwtParser parser = getParser();
-        return parser
-                .parseClaimsJwt(token)
-                .getBody()
-                .getSubject();
+        return ((Claims)parser
+                .parse(token).getBody()).getSubject();
     }
 
     private Key getKey() {

@@ -57,7 +57,8 @@ public class BlankServiceImpl implements BlankService {
 
         return new BlankResponse(
                 generalSoldierMedicalInfo.getLast4(),
-                generalSoldierMedicalInfo.getGender(),
+                generalSoldierMedicalInfo.isMale(),
+                generalSoldierMedicalInfo.isFemale(),
                 generalSoldierMedicalInfo.getDateTimeCreation(),
                 generalSoldierMedicalInfo.getForcesType(),
                 generalSoldierMedicalInfo.getBloodType(),
@@ -94,7 +95,8 @@ public class BlankServiceImpl implements BlankService {
 
         GeneralSoldierMedicalInfo generalSoldierMedicalInfo = new GeneralSoldierMedicalInfo();
         generalSoldierMedicalInfo.setLast4(blankRequest.getLast4());
-        generalSoldierMedicalInfo.setGender(blankRequest.getGender());
+        generalSoldierMedicalInfo.setMale(blankRequest.isMale());
+        generalSoldierMedicalInfo.setFemale(blankRequest.isFemale());
         generalSoldierMedicalInfo.setDateTimeCreation(blankRequest.getDateTimeCreation());
         generalSoldierMedicalInfo.setForcesType(blankRequest.getForcesType());
         generalSoldierMedicalInfo.setBloodType(blankRequest.getBloodType());

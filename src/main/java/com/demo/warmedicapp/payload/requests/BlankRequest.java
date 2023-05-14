@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -15,7 +13,8 @@ public class BlankRequest {
     private int soldierId;
 
     private String last4;
-    private String gender;
+    private boolean male;
+    private boolean female;
     private LocalDateTime dateTimeCreation;
     private String forcesType;
     private String bloodType;
@@ -46,7 +45,8 @@ public class BlankRequest {
     @JsonCreator
     public BlankRequest(@JsonProperty("soldier_id") Integer soldierId,
                         @JsonProperty("last_4") String last4,
-                        @JsonProperty("gender") String gender,
+                        @JsonProperty("male") boolean male,
+                        @JsonProperty("female") boolean female,
                         @JsonProperty("date_time_creation") LocalDateTime dateTimeCreation,
                         @JsonProperty("forces_type") String forcesType,
                         @JsonProperty("blood_type") String bloodType,
@@ -72,7 +72,8 @@ public class BlankRequest {
                         @JsonProperty("text") String text) {
         this.soldierId = soldierId;
         this.last4 = last4;
-        this.gender = gender;
+        this.male = male;
+        this.female = female;
         this.dateTimeCreation = dateTimeCreation;
         this.forcesType = forcesType;
         this.bloodType = bloodType;

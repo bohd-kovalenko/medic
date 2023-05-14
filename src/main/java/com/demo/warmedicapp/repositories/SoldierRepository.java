@@ -24,4 +24,5 @@ public interface SoldierRepository extends JpaRepository<Soldier, Integer> {
             "s.deletedAt IS NULL")
     List<Soldier> searchSoldiers(@Param("search") String search);
 
+    List<Soldier> findByBrigade(String brigade);
 }
