@@ -2,14 +2,17 @@ package com.demo.warmedicapp.services.impl;
 
 import com.demo.warmedicapp.entities.Feedback;
 import com.demo.warmedicapp.entities.Note;
+import com.demo.warmedicapp.entities.Soldier;
 import com.demo.warmedicapp.exceptions.UnexistingSoldierException;
 import com.demo.warmedicapp.exceptions.ValidationException;
+import com.demo.warmedicapp.payload.responses.FeedbackResponse;
 import com.demo.warmedicapp.repositories.FeedbackRepository;
 import com.demo.warmedicapp.services.FeedbackService;
 import com.demo.warmedicapp.services.SoldierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,11 +22,27 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     private final SoldierService soldierService;
 
-    public List<Feedback> getAllFeedbacks() {
-        return feedbackRepository.findAll();
+    public List<FeedbackResponse> getAllFeedbacks() {
+
+        List<Feedback> feedbacks = feedbackRepository.findAll();
+
+        List<FeedbackResponse> feedbackResponses = new ArrayList<>();
+
+
+        for (int i = 0; i < feedbacks.size(); i++) {
+            Soldier soldier = soldierService.getSoldierById(feedbacks.get(i).getSoldierId());
+
+            feedbackResponses.add(new FeedbackResponse(feedbacks.get(i).getSoldierId(),
+                    feedbacks.get(i).getText(),
+                    soldier.getName(),
+                    soldier.getSurname(),
+                    soldier.getPatronymic()));
+        }
+
+        return feedbackResponses;
     }
 
-    public List<Feedback> getAllFeedbacksBySoldierId(Integer id) {
+    public List<FeedbackResponse> getAllFeedbacksBySoldierId(Integer id) {
         List<Feedback> feedbacks;
 
         try {
@@ -32,7 +51,19 @@ public class FeedbackServiceImpl implements FeedbackService {
             throw new UnexistingSoldierException(id);
         }
 
-        return feedbacks;
+        List<FeedbackResponse> feedbackResponses = new ArrayList<>();
+
+        for (int i = 0; i < feedbacks.size(); i++) {
+            Soldier soldier = soldierService.getSoldierById(id);
+
+            feedbackResponses.add(new FeedbackResponse(id,
+                    feedbacks.get(i).getText(),
+                    soldier.getName(),
+                    soldier.getSurname(),
+                    soldier.getPatronymic()));
+        }
+
+        return feedbackResponses;
     }
 
     public void addFeedback(Feedback feedback) {

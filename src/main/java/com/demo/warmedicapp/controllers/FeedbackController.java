@@ -2,6 +2,7 @@ package com.demo.warmedicapp.controllers;
 
 import com.demo.warmedicapp.entities.Feedback;
 import com.demo.warmedicapp.entities.Note;
+import com.demo.warmedicapp.payload.responses.FeedbackResponse;
 import com.demo.warmedicapp.services.FeedbackService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,15 +19,15 @@ public class FeedbackController {
     private final FeedbackService feedbackService;
 
     @GetMapping("/feedbacks")
-    public ResponseEntity<List<Feedback>> getAllFeedbacks() {
-        List<Feedback> feedbacks = feedbackService.getAllFeedbacks();
+    public ResponseEntity<List<FeedbackResponse>> getAllFeedbacks() {
+        List<FeedbackResponse> feedbacks = feedbackService.getAllFeedbacks();
 
         return new ResponseEntity<>(feedbacks, HttpStatus.OK);
     }
 
     @GetMapping("/{id}/feedbacks")
-    public ResponseEntity<List<Feedback>> getAllNotesBySoldierId(@PathVariable int id) {
-        List<Feedback> feedbacks = feedbackService.getAllFeedbacksBySoldierId(id);
+    public ResponseEntity<List<FeedbackResponse>> getAllNotesBySoldierId(@PathVariable int id) {
+        List<FeedbackResponse> feedbacks = feedbackService.getAllFeedbacksBySoldierId(id);
 
         return new ResponseEntity<>(feedbacks, HttpStatus.OK);
     }
