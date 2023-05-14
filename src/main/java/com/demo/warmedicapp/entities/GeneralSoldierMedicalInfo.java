@@ -18,8 +18,10 @@ public class GeneralSoldierMedicalInfo {
     private int id;
     @Column(name = "last4", nullable = true, unique = false)
     private String last4;
-    @Column(name = "gender", nullable = true, unique = false)
-    private String gender;
+    @Column(name = "male", nullable = true, unique = false)
+    private boolean male;
+    @Column(name = "female", nullable = true, unique = false)
+    private boolean female;
     @Column(name = "date_time_creation", nullable = true, unique = false)
     private LocalDateTime dateTimeCreation;
     @Column(name = "forces_type", nullable = true, unique = false)
@@ -28,7 +30,13 @@ public class GeneralSoldierMedicalInfo {
     private String bloodType;
     @Column(name = "allergies", nullable = true, unique = false)
     private String allergies;
-    @ManyToOne
+    @Column(name = "urgently", nullable = false, unique = false)
+    private boolean urgently;
+    @Column(name = "priority", nullable = false, unique = false)
+    private boolean priority;
+    @Column(name = "routine", nullable = false, unique = false)
+    private boolean routine;
+    @OneToOne
     @JoinColumn(name = "soldier_id", unique = false, nullable = false)
     private Soldier soldier;
 }
