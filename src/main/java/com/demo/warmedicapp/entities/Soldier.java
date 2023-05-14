@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "soldiers")
@@ -20,6 +20,10 @@ public class Soldier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
+
+    @Column(name = "brigade", unique = false, nullable = false)
+    @JsonProperty("brigade")
+    private String brigade;
 
     @Column(name = "name", unique = false, nullable = false)
     @JsonProperty("name")
@@ -37,12 +41,11 @@ public class Soldier {
     @JsonProperty("needs_blood_transfusion")
     private Boolean needsBloodTransfusion;
 
-    @OneToMany(mappedBy = "soldier")
-    private List<GeneralSoldierMedicalInfo> generalSoldierMedicalInfoList;
-    @OneToMany(mappedBy = "soldier")
-    private List<SoldierInjuriesTypes> soldierInjuriesTypesList;
-    @OneToMany(mappedBy = "soldier")
-    private List<SoldierInjuriesConcrete> soldierInjuriesConcreteList;
-    @OneToMany(mappedBy = "soldier")
-    private List<SpecificSituationInfo> specificSituationInfoList;
+    @Column(name = "created_at", unique = false, nullable = false)
+    @JsonProperty("created_at")
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(name = "deleted_at", unique = false, nullable = true)
+    @JsonProperty("deleted_at")
+    private LocalDateTime deletedAt;
 }

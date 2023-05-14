@@ -7,6 +7,8 @@ import java.util.List;
 public interface SoldierService {
     List<Soldier> getAllSoldiers();
 
+    List<Soldier> getNotDeletedSoldiers();
+
     Soldier getSoldierById(Integer id);
 
     List<Soldier> searchSoldiers(String search);
@@ -14,4 +16,6 @@ public interface SoldierService {
     void addSoldier(Soldier soldier);
 
     void updateSoldierById(Integer id, Soldier soldier);
+
+    void deleteSoldierById(Integer id);
 }
