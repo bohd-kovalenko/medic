@@ -12,6 +12,7 @@ import com.demo.warmedicapp.services.FileService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -29,6 +30,7 @@ public class FileServiceImpl implements FileService {
     private final SoldierRepository soldierRepository;
 
     private final BlobContainerClient filesContainerClient;
+    private final RestTemplate restTemplate;
 
     @Override
     public List<File> getAllFilesBySoldierIdAndType(Integer id, FileType type) {
@@ -78,5 +80,10 @@ public class FileServiceImpl implements FileService {
                 .forEach(blobItem -> filesContainerClient.getBlobClient(blobItem.getName()).delete());
 
         fileRepository.deleteBySoldierIdAndType(id, type);
+    }
+
+    @Override
+    public byte[] extractImageByUrl(String imageUrl) {
+        return restTemplate.getForObject(imageUrl, byte[].class);
     }
 }

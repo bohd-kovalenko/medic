@@ -12,4 +12,6 @@ public interface FileService {
     void saveAllFiles(List<MultipartFile> files, FileType type, Integer id);
 
     void deleteAllFilesBySoldierId(Integer id, FileType type);
+
+    byte[] extractImageByUrl(String imageUrl);
 }
