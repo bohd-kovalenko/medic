@@ -4,7 +4,7 @@ Hackathon: Hack SPF 2023
 
 Hackathon time: 1 day
 
-Team: LockyLab, 4 people
+Team: LockyLab, 4 people (2 front-end and 2 back-end developers)
 
 Topic: delivery of information about the wounded from the front
 to the hospital
